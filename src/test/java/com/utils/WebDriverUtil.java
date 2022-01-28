@@ -1,10 +1,15 @@
 package com.utils;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
+import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -15,7 +20,7 @@ public class WebDriverUtil {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--no-sandbox");
         options.addArguments("--disable-dev-shm-usage");
-        options.addArguments("--headless");
+//        options.addArguments("--headless");
         WebDriverManager.chromedriver().setup();
         return new ChromeDriver(options);
     }
@@ -47,5 +52,10 @@ public class WebDriverUtil {
         } catch (Exception e) {
             System.out.println(e.getClass());
         }
+    }
+
+    public static void takeScreenShot(WebDriver driver,String fileName) throws IOException {
+        File scrFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
+        FileUtils.copyFile(scrFile, new File("./"+fileName+".png"));
     }
 }

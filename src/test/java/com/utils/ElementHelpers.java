@@ -6,6 +6,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.io.IOException;
 import java.time.Duration;
 
 public class ElementHelpers {
@@ -29,20 +30,29 @@ public class ElementHelpers {
     }
 
     public static void waitForElementToBeVisible(WebDriver driver, By locator) {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(6));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         try {
             wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
         } catch (Exception e) {
+            try {
+                WebDriverUtil.takeScreenShot(driver,"elementNotVisible");
+            } catch (IOException io) {
+                System.out.println(io.getClass());
+            }
             System.out.println("Error finding element --" + e.getClass());
         }
     }
 
     public static void waitForTitleToBe(WebDriver driver, String title) {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
         try {
             wait.until(ExpectedConditions.titleIs(title));
         } catch (Exception e) {
-            System.out.println(e.getClass());
+            try {
+                WebDriverUtil.takeScreenShot(driver,"title");
+            } catch (IOException io) {
+                System.out.println(io.getClass());
+            }
         }
     }
 }

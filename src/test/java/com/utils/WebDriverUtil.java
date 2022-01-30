@@ -20,6 +20,7 @@ public class WebDriverUtil {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--no-sandbox");
         options.addArguments("--disable-dev-shm-usage");
+//        options.addArguments("--remote-debugging-port=9222");
         options.addArguments("--headless");
         WebDriverManager.chromedriver().setup();
         return new ChromeDriver(options);
@@ -56,6 +57,6 @@ public class WebDriverUtil {
 
     public static void takeScreenShot(WebDriver driver,String fileName) throws IOException {
         File scrFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
-        FileUtils.copyFile(scrFile, new File("./"+fileName+".png"));
+        FileUtils.copyFile(scrFile, new File("./screenshot/"+fileName+".png"));
     }
 }

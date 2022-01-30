@@ -10,24 +10,22 @@ import java.io.IOException;
 
 public class LoginPage {
 
-    /*
     // -----For headless mode----
     private static final boolean headless = true;
     private static final By emailInput = By.xpath("/html/body/div/div[2]/div[2]/div[1]/form/div/div/div/div/div/input[1]");
     private static final By nextButtonInGoogleLogin = By.xpath("/html/body/div/div[2]/div[2]/div[1]/form/div/div/input");
     private static final By passwordInput = By.xpath("/html/body/div[1]/div[2]/div/div[2]/form/span/div/div[2]/input");
     private static final By passwordNextButtonInGoogleLogin = By.xpath("/html/body/div[1]/div[2]/div/div[2]/form/span/div/input[2]");
-     */
 
     //-----For non headless mode-----
-    private static final boolean headless = false;
-    private static final By emailInput = By.id("identifierId");
-    private static final By nextButtonInGoogleLogin = By.id("identifierNext");
-    private static final By passwordInput = By.cssSelector("#password > div.aCsJod.oJeWuf > div > div.Xb9hP > input");
-    private static final By passwordNextButtonInGoogleLogin = By.id("passwordNext");
+//    private static final boolean headless = false;
+//    private static final By emailInput = By.id("identifierId");
+//    private static final By nextButtonInGoogleLogin = By.id("identifierNext");
+//    private static final By passwordInput = By.cssSelector("#password > div.aCsJod.oJeWuf > div > div.Xb9hP > input");
+//    private static final By passwordNextButtonInGoogleLogin = By.id("passwordNext");
 
     private static final By loginButtonSelector = By.cssSelector(".form-box > button");
-    private static final By allowAccess = null;
+    private static final By allowAccess = By.id("submit_approve_access");
     private static final String titleAfterLogin = "Dashboard | Hiring Motion";
 
     public static void login(WebDriver driver, String email, String password) {
@@ -41,7 +39,7 @@ public class LoginPage {
                 //to perform Scroll on application using Selenium
                 JavascriptExecutor js = (JavascriptExecutor) driver;
                 js.executeScript("window.scrollBy(0,350)", "");
-                ElementHelpers.waitForElementToBeVisible(driver, allowAccess);
+                ElementHelpers.waitForElementToBeEnabled(driver, allowAccess);
                 driver.findElement(allowAccess).click();
             }
             WebDriverUtil.moveToFirstTab(driver);

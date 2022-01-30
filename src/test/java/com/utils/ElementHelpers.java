@@ -55,4 +55,30 @@ public class ElementHelpers {
             }
         }
     }
+
+    public static void waitForElementToBeEnabled(WebDriver driver,WebElement element) {
+        WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(10));
+        try {
+            wait.until(ExpectedConditions.elementToBeClickable(element));
+        } catch (Exception e) {
+            try {
+                WebDriverUtil.takeScreenShot(driver,"title");
+            } catch (IOException io) {
+                System.out.println(io.getClass());
+            }
+        }
+    }
+
+    public static void waitForElementToBeEnabled(WebDriver driver,By locator) {
+        WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(10));
+        try {
+            wait.until(ExpectedConditions.elementToBeClickable(locator));
+        } catch (Exception e) {
+            try {
+                WebDriverUtil.takeScreenShot(driver,"title");
+            } catch (IOException io) {
+                System.out.println(io.getClass());
+            }
+        }
+    }
 }

@@ -27,7 +27,6 @@ public class PositionPageTest {
     @BeforeClass
     public void loginToHiringPortal() {
         LoginPage.login(driver, email, password);
-        System.out.println("this"+driver.getCurrentUrl());
         ElementHelpers.waitForDOMToLoad(driver);
     }
 

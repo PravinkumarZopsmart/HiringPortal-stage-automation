@@ -21,7 +21,7 @@ public class WebDriverUtil {
         options.addArguments("--no-sandbox");
         options.addArguments("--disable-dev-shm-usage");
 //        options.addArguments("--remote-debugging-port=9222");
-        options.addArguments("--headless");
+//        options.addArguments("--headless");
         WebDriverManager.chromedriver().setup();
         return new ChromeDriver(options);
     }

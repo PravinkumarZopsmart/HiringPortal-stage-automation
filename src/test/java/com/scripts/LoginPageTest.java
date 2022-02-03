@@ -12,7 +12,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Test;
 
-public class PositionPageTest {
+public class LoginPageTest {
     private static WebDriver driver;
     private static final String URL = "https://stage.hiringmotion.com/";
     private static final String email = "pravin.kumar@zopsmart.com";

@@ -11,18 +11,18 @@ import java.io.IOException;
 public class LoginPage {
 
     // -----For headless mode----
-    private static final boolean headless = true;
-    private static final By emailInput = By.xpath("/html/body/div/div[2]/div[2]/div[1]/form/div/div/div/div/div/input[1]");
-    private static final By nextButtonInGoogleLogin = By.xpath("/html/body/div/div[2]/div[2]/div[1]/form/div/div/input");
-    private static final By passwordInput = By.xpath("/html/body/div[1]/div[2]/div/div[2]/form/span/div/div[2]/input");
-    private static final By passwordNextButtonInGoogleLogin = By.xpath("/html/body/div[1]/div[2]/div/div[2]/form/span/div/input[2]");
+//    private static final boolean headless = true;
+//    private static final By emailInput = By.xpath("/html/body/div/div[2]/div[2]/div[1]/form/div/div/div/div/div/input[1]");
+//    private static final By nextButtonInGoogleLogin = By.xpath("/html/body/div/div[2]/div[2]/div[1]/form/div/div/input");
+//    private static final By passwordInput = By.xpath("/html/body/div[1]/div[2]/div/div[2]/form/span/div/div[2]/input");
+//    private static final By passwordNextButtonInGoogleLogin = By.xpath("/html/body/div[1]/div[2]/div/div[2]/form/span/div/input[2]");
 
     //-----For non headless mode-----
-//    private static final boolean headless = false;
-//    private static final By emailInput = By.id("identifierId");
-//    private static final By nextButtonInGoogleLogin = By.id("identifierNext");
-//    private static final By passwordInput = By.cssSelector("#password > div.aCsJod.oJeWuf > div > div.Xb9hP > input");
-//    private static final By passwordNextButtonInGoogleLogin = By.id("passwordNext");
+    private static final boolean headless = false;
+    private static final By emailInput = By.id("identifierId");
+    private static final By nextButtonInGoogleLogin = By.id("identifierNext");
+    private static final By passwordInput = By.cssSelector("#password > div.aCsJod.oJeWuf > div > div.Xb9hP > input");
+    private static final By passwordNextButtonInGoogleLogin = By.id("passwordNext");
 
     private static final By loginButtonSelector = By.cssSelector(".form-box > button");
     private static final By allowAccess = By.id("submit_approve_access");

@@ -1,22 +1,16 @@
 package com.scripts;
 
 import com.pages.LoginPage;
-import com.utils.ElementHelpers;
-import com.utils.WebDriverUtil;
+import com.utils.*;
 import org.openqa.selenium.WebDriver;
 
 import static org.testng.Assert.*;
 
-import org.testng.annotations.AfterSuite;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeSuite;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 
-public class PositionPageTest {
+public class LoginPageTest {
     private static WebDriver driver;
     private static final String URL = "https://stage.hiringmotion.com/";
-    private static final String email = "pravin.kumar@zopsmart.com";
-    private static final String password = "Godofwar@25";
 
     @BeforeSuite
     public void setUpDriver() {
@@ -26,7 +20,7 @@ public class PositionPageTest {
 
     @BeforeClass
     public void loginToHiringPortal() {
-        LoginPage.login(driver, email, password);
+        LoginPage.login(driver);
         ElementHelpers.waitForDOMToLoad(driver);
     }
 

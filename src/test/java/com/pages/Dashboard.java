@@ -1,5 +1,7 @@
 package com.pages;
 
+import com.utils.ElementHelpers;
+import com.utils.WebDriverUtil;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -8,8 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Dashboard {
-    private static final By addPositionButton = By.cssSelector("#root > div > main > div.MuiBox-root.jss56.jss54.jss55 > div > div.dashboard_tasks > div:nth-child(1) > div > div > div > div > button");
-    private static final By streamButton = By.cssSelector("#stream");
+    private static final By addPositionButton = By.cssSelector("#root > div > main > div.MuiBox-root.jss41.jss39.jss40 > div > div.dashboard_tasks > div:nth-child(1) > div > div > div > div > button");
+    private static final By streamButton = By.cssSelector("#position-add-stream");
     private static final By streamListButton = By.cssSelector("#menu-stream > div.MuiPaper-root.MuiMenu-paper.MuiPopover-paper.MuiPaper-elevation8.MuiPaper-rounded > ul > li:nth-child(4)");
     private static final By levelButton  = By.cssSelector("#level");
     private static final By levelListButton  = By.cssSelector("#menu-level > div.MuiPaper-root.MuiMenu-paper.MuiPopover-paper.MuiPaper-elevation8.MuiPaper-rounded > ul > li.MuiButtonBase-root.MuiListItem-root.MuiMenuItem-root.Mui-selected.MuiMenuItem-gutters.MuiListItem-gutters.MuiListItem-button.Mui-selected");
@@ -34,6 +36,7 @@ public class Dashboard {
     }
 
     public static String addPositions(WebDriver driver) throws InterruptedException {
+        ElementHelpers.waitForElementToBeVisible(driver,addPositionButton);
         driver.findElement(addPositionButton).click();
         Thread.sleep(3000);
         driver.findElement(streamButton).click();

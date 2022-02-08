@@ -47,11 +47,7 @@ public class LoginPage {
             WebDriverUtil.moveToFirstTab(driver);
             ElementHelpers.waitForTitleToBe(driver, titleAfterLogin);
         } catch (Exception e) {
-            try {
-                WebDriverUtil.takeScreenShot(driver, "loginPage");
-            } catch (IOException io) {
-                System.out.println(io.getClass());
-            }
+            WebDriverUtil.takeScreenShot(driver, "loginPage");
             e.printStackTrace();
             System.out.println(e.getClass());
         }

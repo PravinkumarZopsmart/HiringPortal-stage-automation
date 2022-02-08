@@ -55,8 +55,14 @@ public class WebDriverUtil {
         }
     }
 
-    public static void takeScreenShot(WebDriver driver,String fileName) throws IOException {
-        File scrFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
-        FileUtils.copyFile(scrFile, new File("./screenshot/"+fileName+".png"));
+    public static void takeScreenShot(WebDriver driver,String fileName) {
+        try {
+            File scrFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
+            FileUtils.copyFile(scrFile, new File("./screenshot/"+fileName+".png"));
+        } catch (IOException e) {
+            System.out.println(e.getClass());
+            System.out.println("Error taking screenshot");
+        }
+
     }
 }

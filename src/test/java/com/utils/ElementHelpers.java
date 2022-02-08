@@ -34,11 +34,7 @@ public class ElementHelpers {
         try {
             wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
         } catch (Exception e) {
-            try {
-                WebDriverUtil.takeScreenShot(driver,"elementNotVisible");
-            } catch (IOException io) {
-                System.out.println(io.getClass());
-            }
+            WebDriverUtil.takeScreenShot(driver,"elementNotVisible");
             System.out.println("Error finding element --" + e.getClass());
         }
     }
@@ -48,11 +44,7 @@ public class ElementHelpers {
         try {
             wait.until(ExpectedConditions.titleIs(title));
         } catch (Exception e) {
-            try {
-                WebDriverUtil.takeScreenShot(driver,"title");
-            } catch (IOException io) {
-                System.out.println(io.getClass());
-            }
+            WebDriverUtil.takeScreenShot(driver,"title");
         }
     }
 
@@ -61,11 +53,7 @@ public class ElementHelpers {
         try {
             wait.until(ExpectedConditions.elementToBeClickable(element));
         } catch (Exception e) {
-            try {
-                WebDriverUtil.takeScreenShot(driver,"title");
-            } catch (IOException io) {
-                System.out.println(io.getClass());
-            }
+            WebDriverUtil.takeScreenShot(driver,"title");
         }
     }
 
@@ -74,11 +62,7 @@ public class ElementHelpers {
         try {
             wait.until(ExpectedConditions.elementToBeClickable(locator));
         } catch (Exception e) {
-            try {
-                WebDriverUtil.takeScreenShot(driver,"title");
-            } catch (IOException io) {
-                System.out.println(io.getClass());
-            }
+            WebDriverUtil.takeScreenShot(driver,"title");
         }
     }
 }

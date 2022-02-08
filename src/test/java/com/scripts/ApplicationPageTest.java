@@ -8,6 +8,8 @@ import static org.testng.Assert.*;
 
 import org.testng.annotations.*;
 
+import java.util.Map;
+
 public class ApplicationPageTest {
     private static WebDriver driver;
     private static final String URL = "https://stage.hiringmotion.com/";
@@ -23,6 +25,10 @@ public class ApplicationPageTest {
     public void loginToHiringPortal() {
         LoginPage.login(driver);
         ElementHelpers.waitForDOMToLoad(driver);
+    }
+
+    @BeforeMethod
+    public void selectApplicationBar() {
         Base.selectSideBarPage(driver, APPLICATION);
     }
 
@@ -34,13 +40,25 @@ public class ApplicationPageTest {
 
     @Test(dependsOnMethods = {"testApplicationHeader"})
     public void testApplicationsPerPage() {
-        Base.selectSideBarPage(driver, APPLICATION);
         do {
             int actualApplicationsPerPage = Application.getNumberOfApplicationsInCurrentPage(driver);
             assertTrue(actualApplicationsPerPage <= 10);
         } while (Application.moveToNextPage(driver));
     }
 
+    @Test(dependsOnMethods = {"testApplicationsPerPage"})
+    public void testApplicationDetails() {
+        Map<String,String> applicantDetails = Application.getApplicantDetails(driver,1);
+        System.out.println(applicantDetails);
+        Application.enterApplicantDetails(driver,1);
+        Map<String, String> actualApplicantDetails = Application.getApplicantNameAndStatus(driver);
+        String expectedName = applicantDetails.get("name");
+        String expectedStatus = applicantDetails.get("status");
+        String actualName = actualApplicantDetails.get("name");
+        String actualStatus = actualApplicantDetails.get("status");
+        assertEquals(actualName,expectedName);
+        assertEquals(actualStatus,expectedStatus);
+    }
     @AfterSuite
     public void endDriverSession() {
         driver.close();

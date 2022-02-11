@@ -1,5 +1,6 @@
 package com.scripts;
 
+import com.pages.AddPosition;
 import com.pages.Dashboard;
 import com.pages.LoginPage;
 import com.utils.ElementHelpers;
@@ -10,7 +11,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Test;
 
-public class DashboardTest {
+public class AddPositionTest {
     private static WebDriver driver;
     private static final String URL = "https://stage.hiringmotion.com/";
 
@@ -26,15 +27,10 @@ public class DashboardTest {
         ElementHelpers.waitForDOMToLoad(driver);
     }
 
-    @Test(priority = 0)
-    public void dashElementsTest(){
-        System.out.println(Dashboard.dashboardElements(driver));
-
-    }
-
-    @Test(priority = 1)
+    @Test
     public void addPositionTest() throws InterruptedException {
-        String actual = Dashboard.addPositions(driver);
-        Assert.assertEquals(actual, 15);
+        int expectedNumberOfPositions = Dashboard.getNumberOf(driver,"Positions") + 1;
+        int actualNumberOfPositions = AddPosition.addPositions(driver);
+        Assert.assertEquals(actualNumberOfPositions, expectedNumberOfPositions);
     }
 }

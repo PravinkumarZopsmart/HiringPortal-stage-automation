@@ -11,7 +11,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 public class Application {
@@ -33,6 +32,8 @@ public class Application {
     private static final By applicantStatus = By.cssSelector(".interview_header h5");
     private static final By applicationDetailsButtons = By.cssSelector(".interview_header_content " +
             ".MuiButtonBase-root.MuiButton-root.MuiButton-text");
+    private static final By viewInformationDetails = By.cssSelector(".same-row-view-info .single-view-view-information");
+    private static final By closeButton = By.cssSelector(".MuiDialog-container.MuiDialog-scrollPaper > div > header > div > button");
 
     public static String getPageHeading(WebDriver driver) {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
@@ -166,5 +167,26 @@ public class Application {
             System.out.println(e.getClass());
             return false;
         }
+    }
+
+    public static Map<String, String> getEmailAndPhone(WebDriver driver) {
+        Map<String, String> emailAndPhone = new HashMap<>();
+        try {
+            List<WebElement> buttons = driver.findElements(applicationDetailsButtons);
+            for (WebElement button : buttons) {
+                if (button.getText().equalsIgnoreCase("View information")) {
+                    button.click();
+                    break;
+                }
+            }
+            List<WebElement> info = driver.findElements(viewInformationDetails);
+            emailAndPhone.put("email",info.get(0).getText().split(" ")[1]);
+            emailAndPhone.put("phone",info.get(1).getText().split(" ")[1]);
+            driver.findElement(closeButton).click();
+        } catch (Exception e) {
+            WebDriverUtil.takeScreenShot(driver, "getEmailAndPhone");
+            System.out.println(e.getClass());
+        }
+        return emailAndPhone;
     }
 }

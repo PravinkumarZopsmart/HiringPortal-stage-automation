@@ -27,10 +27,13 @@ public class Application {
     private static final By previousPageButtonLocator = By.cssSelector("MuiTablePagination-actions button:nth-child(1)");
     private static final By numberOfApplications = By.cssSelector(".MuiToolbar-root" +
             ".MuiToolbar-regular.MuiTablePagination-toolbar.MuiToolbar-gutters p");
-    private static final By allRows = By.cssSelector(".MuiTableContainer-root.table-container > table > tbody > tr");
-//    private static final By firstRow = By.cssSelector(".MuiTableContainer-root.table-container > table > tbody > tr > td");
+    private static final By allRows = By.cssSelector(".MuiTableContainer-root.table-container > table > tbody tr");
     private static final By applicantName = By.cssSelector(".interview_header h3");
     private static final By applicantStatus = By.cssSelector(".interview_header h5");
+    private static final By applicationDetailsButtons = By.cssSelector(".interview_header_content " +
+            ".MuiButtonBase-root.MuiButton-root.MuiButton-text");
+    private static final By viewInformationDetails = By.cssSelector(".same-row-view-info .single-view-view-information");
+    private static final By closeButton = By.cssSelector(".MuiDialog-container.MuiDialog-scrollPaper > div > header > div > button");
 
     public static String getPageHeading(WebDriver driver) {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
@@ -83,9 +86,16 @@ public class Application {
         }
     }
 
-    public static Map<String, String> getApplicantDetails(WebDriver driver, int number) {
-        List<WebElement> getAllRows = driver.findElements(allRows);
-        return getApplicantDetails(getAllRows.get(number-1));
+    public static Map<String, String> getApplicantDetails(WebDriver driver, String status) {
+        do {
+            List<WebElement> getAllRows = driver.findElements(allRows);
+            for (WebElement getAllRow : getAllRows) {
+                if (getAllRow.findElement(By.cssSelector("td:nth-child(5)")).getText().equalsIgnoreCase(status)) {
+                    return getApplicantDetails(getAllRow);
+                }
+            }
+        } while (moveToNextPage(driver));
+        return null;
     }
 
     public static Map<String, String> getApplicantDetails(WebElement row) {
@@ -110,30 +120,73 @@ public class Application {
         }
     }
 
-    public static boolean enterApplicantDetails(WebDriver driver,int number) {
+    public static boolean enterApplicantDetails(WebDriver driver, String status) {
         try {
-            List<WebElement> getAllRows = driver.findElements(allRows);
-            System.out.println(getAllRows);
-            getAllRows.get(number-1).findElement(By.cssSelector("td")).click();
-            ElementHelpers.waitForDOMToLoad(driver);
-            return true;
-        } catch (Exception e){
+            do{
+                List<WebElement> getAllRows = driver.findElements(allRows);
+                for (WebElement getAllRow : getAllRows) {
+                    if (getAllRow.findElement(By.cssSelector("td:nth-child(5)")).getText().equalsIgnoreCase(status)) {
+                        driver.get(getAllRow.findElement(By.cssSelector("td a")).getAttribute("href"));
+                        return true;
+                    }
+                }
+            } while (moveToNextPage(driver));
+        } catch (Exception e) {
             System.out.println(e.getClass().getName());
-            WebDriverUtil.takeScreenShot(driver,"enterApplicantDetails");
+            WebDriverUtil.takeScreenShot(driver, "enterApplicantDetails");
+            return false;
+        }
+        return false;
+    }
+
+    public static Map<String, String> getApplicantNameAndStatus(WebDriver driver) {
+        Map<String, String> applicantNameAndStatus = new HashMap<>();
+        try {
+            ElementHelpers.waitForElementToBeVisible(driver,applicantName);
+            applicantNameAndStatus.put("name", driver.findElement(applicantName).getText());
+            applicantNameAndStatus.put("status", driver.findElement(applicantStatus).getText());
+            return applicantNameAndStatus;
+        } catch (Exception e) {
+            System.out.println(e.getClass());
+            WebDriverUtil.takeScreenShot(driver, "nameAndStatus");
+        }
+        return applicantNameAndStatus;
+    }
+
+    public static boolean isApplicationDetailsButton(WebDriver driver, String buttonName) {
+        try {
+            List<WebElement> buttons = driver.findElements(applicationDetailsButtons);
+            for (WebElement button : buttons) {
+                if (button.getText().equalsIgnoreCase(buttonName)) {
+                    return true;
+                }
+            }
+            return false;
+        } catch (Exception e) {
+            WebDriverUtil.takeScreenShot(driver, "isButtonExists");
+            System.out.println(e.getClass());
             return false;
         }
     }
 
-    public static Map<String, String> getApplicantNameAndStatus(WebDriver driver){
-        Map<String, String> applicantNameAndStatus = new HashMap<>();
+    public static Map<String, String> getEmailAndPhone(WebDriver driver) {
+        Map<String, String> emailAndPhone = new HashMap<>();
         try {
-            applicantNameAndStatus.put("name",driver.findElement(applicantName).getText());
-            applicantNameAndStatus.put("status",driver.findElement(applicantStatus).getText());
-            return applicantNameAndStatus;
+            List<WebElement> buttons = driver.findElements(applicationDetailsButtons);
+            for (WebElement button : buttons) {
+                if (button.getText().equalsIgnoreCase("View information")) {
+                    button.click();
+                    break;
+                }
+            }
+            List<WebElement> info = driver.findElements(viewInformationDetails);
+            emailAndPhone.put("email",info.get(0).getText().split(" ")[1]);
+            emailAndPhone.put("phone",info.get(1).getText().split(" ")[1]);
+            driver.findElement(closeButton).click();
         } catch (Exception e) {
+            WebDriverUtil.takeScreenShot(driver, "getEmailAndPhone");
             System.out.println(e.getClass());
-            WebDriverUtil.takeScreenShot(driver,"nameAndStatus");
         }
-        return applicantNameAndStatus;
+        return emailAndPhone;
     }
 }

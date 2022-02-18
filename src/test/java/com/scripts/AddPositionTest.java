@@ -7,6 +7,7 @@ import com.utils.ElementHelpers;
 import com.utils.WebDriverUtil;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
+import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Test;
@@ -32,5 +33,10 @@ public class AddPositionTest {
         int expectedNumberOfPositions = Dashboard.getNumberOf(driver,"Positions") + 1;
         int actualNumberOfPositions = AddPosition.addPositions(driver);
         Assert.assertEquals(actualNumberOfPositions, expectedNumberOfPositions);
+    }
+    @AfterSuite
+    public void endDriverSession() {
+        driver.close();
+        driver.quit();
     }
 }

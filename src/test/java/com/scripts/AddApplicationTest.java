@@ -1,7 +1,6 @@
 package com.scripts;
-import com.pages.Dashboard;
+import com.pages.*;
 import com.utils.*;
-import com.pages.AddPosition;
 import com.pages.LoginPage;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
@@ -10,13 +9,15 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Test;
 
-public class AddPositionTest {
+public class AddApplicationTest {
     private static WebDriver driver;
     private static final String URL = "https://stage.hiringmotion.com/";
+    private static final String APPLICATION = "APPLICATIONS";
 
     @BeforeSuite
     public void setUpDriver() {
         driver = WebDriverUtil.startWebDriver();
+        driver.manage().window().maximize();
         driver.get(URL);
     }
 
@@ -27,10 +28,10 @@ public class AddPositionTest {
     }
 
     @Test
-    public void addPositionTest() throws InterruptedException {
-        int expectedNumberOfPositions = Dashboard.getNumberOf(driver,"Positions") + 1;
-        int actualNumberOfPositions = Integer.parseInt(AddPosition.addPositions(driver));
-        Assert.assertEquals(actualNumberOfPositions, expectedNumberOfPositions);
+    public void addAplicationTest() throws InterruptedException {
+        int expectedNumberOfPositions = Dashboard.getNumberOf(driver,"Applications") + 1;
+        int actualNumberOfPositions = Integer.parseInt(AddApplication.addApplication(driver));
+        Assert.assertEquals(expectedNumberOfPositions, actualNumberOfPositions);
     }
 
     @AfterSuite

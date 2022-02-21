@@ -42,7 +42,7 @@ public class ApplicationPageTest {
     @Test(dependsOnMethods = {"testApplicationHeader"})
     public void testApplicationsPerPage() {
         do {
-            int actualApplicationsPerPage = Application.getNumberOfApplicationsInCurrentPage(driver);
+            int actualApplicationsPerPage = Application.getNumberOfRowsInCurrentPage(driver);
             assertTrue(actualApplicationsPerPage <= 10);
         } while (Application.moveToNextPage(driver));
     }

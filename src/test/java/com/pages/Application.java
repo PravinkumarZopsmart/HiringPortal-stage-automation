@@ -1,7 +1,5 @@
 package com.pages;
-
-import com.utils.ElementHelpers;
-import com.utils.WebDriverUtil;
+import com.utils.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;

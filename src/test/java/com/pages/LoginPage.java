@@ -1,7 +1,6 @@
 package com.pages;
 
-import com.utils.ElementHelpers;
-import com.utils.WebDriverUtil;
+import com.utils.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -27,8 +26,8 @@ public class LoginPage {
     private static final By loginButtonSelector = By.cssSelector(".form-box > button");
     private static final By allowAccess = By.id("submit_approve_access");
     private static final String titleAfterLogin = "Dashboard | Hiring Motion";
-    private static final String email = "pravin.kumar@zopsmart.com";
-    private static final String password = "Godofwar@25";
+    private static final String email = "kumar.lalit@zopsmart.com";
+    private static final String password = "Kumar@[7878]";
 
     public static void login(WebDriver driver) {
         try {

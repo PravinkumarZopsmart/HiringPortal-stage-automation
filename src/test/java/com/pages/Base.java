@@ -4,8 +4,10 @@ import com.utils.ElementHelpers;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.*;
 
+import java.io.File;
 import java.time.Duration;
 import java.util.List;
+import java.util.Objects;
 
 public class Base {
     private static final By sideBarButtonLocator = By.cssSelector(".side-bar-buttons a");
@@ -14,7 +16,6 @@ public class Base {
     private static final By previousPageButtonLocator = By.cssSelector("MuiTablePagination-actions button:nth-child(1)");
     private static final By numberOfApplications = By.cssSelector(".MuiToolbar-root" +
             ".MuiToolbar-regular.MuiTablePagination-toolbar.MuiToolbar-gutters p");
-
 
     public static void selectSideBarPage(WebDriver driver, String button) {
         driver.get("https://stage.hiringmotion.com/");
@@ -67,5 +68,14 @@ public class Base {
             return true;
         }
         return false;
+    }
+
+    public static void deleteScreenshots() {
+        File folder = new File("./screenshot/");
+        File[] files = folder.listFiles();
+        assert files != null;
+        for (File file : files) {
+            file.delete();
+        }
     }
 }

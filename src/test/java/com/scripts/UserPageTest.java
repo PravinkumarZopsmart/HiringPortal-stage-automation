@@ -1,22 +1,22 @@
 package com.scripts;
 
-import com.pages.Base;
-import com.pages.LoginPage;
+import com.pages.*;
 import com.utils.*;
 import org.openqa.selenium.WebDriver;
+import org.testng.annotations.*;
 
 import static org.testng.Assert.*;
 
-import org.testng.annotations.*;
-
-public class LoginPageTest {
+public class UserPageTest {
     private static WebDriver driver;
     private static final String URL = "https://stage.hiringmotion.com/";
+    private static final String USERS = "Users";
 
     @BeforeSuite
     public void setUpDriver() {
         Base.deleteScreenshots();
         driver = WebDriverUtil.startWebDriver();
+        driver.manage().window().maximize();
         driver.get(URL);
     }
 
@@ -26,16 +26,15 @@ public class LoginPageTest {
         ElementHelpers.waitForDOMToLoad(driver);
     }
 
-    @Test
-    public void testPositionHeader() {
-        String expectedTitle = "Dashboard | Hiring Motion";
-        String actualTitle = driver.getTitle();
-        assertEquals(actualTitle, expectedTitle);
+    @BeforeMethod
+    public void selectApplicationBar() {
+        Base.selectSideBarPage(driver, USERS);
     }
 
-    @AfterSuite
-    public void endWebDriverSession() {
-        driver.close();
-        driver.quit();
+    @Test
+    public void testUsersHeader(){
+        String expectedHeader = USERS.toUpperCase();
+        String actualHeader = Users.getPageHeader(driver).toUpperCase();
+        assertEquals(actualHeader,expectedHeader);
     }
 }

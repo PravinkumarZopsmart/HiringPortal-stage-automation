@@ -16,6 +16,7 @@ public class AddApplicationTest {
 
     @BeforeSuite
     public void setUpDriver() {
+        Base.deleteScreenshots();
         driver = WebDriverUtil.startWebDriver();
         driver.manage().window().maximize();
         driver.get(URL);
@@ -28,7 +29,7 @@ public class AddApplicationTest {
     }
 
     @Test
-    public void addAplicationTest() throws InterruptedException {
+    public void addApplicationTest() throws InterruptedException {
         int expectedNumberOfPositions = Dashboard.getNumberOf(driver,"Applications") + 1;
         int actualNumberOfPositions = Integer.parseInt(AddApplication.addApplication(driver));
         Assert.assertEquals(expectedNumberOfPositions, actualNumberOfPositions);

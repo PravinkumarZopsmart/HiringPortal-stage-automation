@@ -20,10 +20,6 @@ public class Application extends Base{
     private static final int createdAtIndex = 5;
     private static final int resumeIndex = 6;
     private static final By pageHeadingLocator = By.cssSelector(".head-text-applications-list");
-    private static final By tableContentsLocator = By.cssSelector(".MuiTableBody-root tr");
-    private static final By nextPageButtonLocator = By.cssSelector(".MuiTablePagination-actions button:nth-child(2)");
-    private static final By previousPageButtonLocator = By.cssSelector("MuiTablePagination-actions button:nth-child(1)");
-    private static final By allRows = By.cssSelector(".MuiTableContainer-root.table-container > table > tbody tr");
     private static final By applicantName = By.cssSelector(".interview_header h3");
     private static final By applicantStatus = By.cssSelector(".interview_header h5");
     private static final By applicationDetailsButtons = By.cssSelector(".interview_header_content " +

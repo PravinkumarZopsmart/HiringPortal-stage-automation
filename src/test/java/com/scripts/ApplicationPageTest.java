@@ -44,7 +44,9 @@ public class ApplicationPageTest {
     public void testApplicationsPerPage() {
         do {
             int actualApplicationsPerPage = Application.getNumberOfRowsInCurrentPage(driver);
+            int expectedApplicationPerPage = Application.getExpectedNumberOfRowsInCurrentPage(driver);
             assertTrue(actualApplicationsPerPage <= 10);
+            assertEquals(actualApplicationsPerPage,expectedApplicationPerPage);
         } while (Application.moveToNextPage(driver));
     }
 

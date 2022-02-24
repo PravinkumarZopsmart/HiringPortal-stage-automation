@@ -37,4 +37,27 @@ public class UserPageTest {
         String actualHeader = Users.getPageHeader(driver).toUpperCase();
         assertEquals(actualHeader,expectedHeader);
     }
+
+    @Test
+    public void testAddAndCloseUserForm() {
+        assertFalse(Users.isAddUserFormOpen(driver));
+        Users.openAddUserForm(driver);
+        assertTrue(Users.isAddUserFormOpen(driver));
+        Users.closeAddUserForm(driver);
+    }
+
+    @Test
+    public void testUsersPerPage() {
+        do {
+            int actualUserPerPage = Users.getNumberOfRowsInCurrentPage(driver);
+            int expectedUserPerPage = Users.getExpectedNumberOfRowsInCurrentPage(driver);
+            assertEquals(actualUserPerPage,expectedUserPerPage);
+        } while (Users.moveToNextPage(driver));
+    }
+
+    @AfterSuite
+    public void endSession () {
+        driver.close();
+        driver.quit();
+    }
 }

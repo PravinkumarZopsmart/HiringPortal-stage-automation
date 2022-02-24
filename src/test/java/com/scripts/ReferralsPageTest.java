@@ -52,7 +52,7 @@ public class ReferralsPageTest {
     @Test
     public static void testNumberOfReferrals() {
         int actualNumberOfReferrals = Referrals.getNumberOfRowsInCurrentPage(driver);
-        int expectedNumberOfReferrals = Referrals.getNumberOfApplications(driver);
+        int expectedNumberOfReferrals = Referrals.getTotalNumberOfRowsInSection(driver);
         assertEquals(actualNumberOfReferrals,expectedNumberOfReferrals);
     }
 

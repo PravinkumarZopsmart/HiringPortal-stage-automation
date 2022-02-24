@@ -16,6 +16,7 @@ public class Base {
     private static final By previousPageButtonLocator = By.cssSelector("MuiTablePagination-actions button:nth-child(1)");
     private static final By numberOfApplications = By.cssSelector(".MuiToolbar-root" +
             ".MuiToolbar-regular.MuiTablePagination-toolbar.MuiToolbar-gutters p");
+    public static final By allRows = By.cssSelector(".MuiTableContainer-root.table-container > table > tbody tr");
 
     public static void selectSideBarPage(WebDriver driver, String button) {
         driver.get("https://stage.hiringmotion.com/");
@@ -29,7 +30,20 @@ public class Base {
         }
     }
 
-    public static int getNumberOfApplications(WebDriver driver) {
+    public static int getExpectedNumberOfRowsInCurrentPage(WebDriver driver) {
+        try {
+            ElementHelpers.waitForElementToBeVisible(driver,tableContentsLocator);
+            String applicationsCount = driver.findElement(numberOfApplications).getText();
+            String[] countArray = applicationsCount.split(" ");
+            String[] innerCountArray = countArray[0].split("-");
+            int count = (Integer.parseInt(innerCountArray[1])-Integer.parseInt(innerCountArray[0]))+1;
+            return count;
+        } catch (Exception e) {
+            return 0;
+        }
+    }
+
+    public static int getTotalNumberOfRowsInSection(WebDriver driver) {
         try {
             ElementHelpers.waitForElementToBeVisible(driver,tableContentsLocator);
             String applicationsCount = driver.findElement(numberOfApplications).getText();

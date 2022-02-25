@@ -18,7 +18,7 @@ public class ElementHelpers {
     }
 
     public static boolean waitForElementToBeVisible(WebDriver driver, WebElement element) {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         try {
             wait.until(ExpectedConditions.visibilityOf(element));
             return true;

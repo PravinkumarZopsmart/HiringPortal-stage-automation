@@ -3,10 +3,7 @@ import com.utils.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.time.Duration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,19 +29,19 @@ public class Application extends Base{
         return driver.findElement(pageHeadingLocator).getText();
     }
 
-    public static Map<String, String> getApplicantDetails(WebDriver driver, String status) {
+    public static Map<String, String> getApplicantDetailsByStatus(WebDriver driver, String status) {
         do {
             List<WebElement> getAllRows = driver.findElements(allRows);
             for (WebElement getAllRow : getAllRows) {
                 if (getAllRow.findElement(By.cssSelector("td:nth-child(5)")).getText().equalsIgnoreCase(status)) {
-                    return getApplicantDetails(getAllRow);
+                    return getApplicantDetailsByStatus(getAllRow);
                 }
             }
         } while (moveToNextPage(driver));
         return null;
     }
 
-    public static Map<String, String> getApplicantDetails(WebElement row) {
+    public static Map<String, String> getApplicantDetailsByStatus(WebElement row) {
         Map<String, String> applicantDetails = new HashMap<>();
         try {
             List<WebElement> columns = row.findElements(By.cssSelector("td"));

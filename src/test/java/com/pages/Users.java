@@ -18,8 +18,8 @@ public class Users extends Base {
     private static final By emailInput = By.xpath("//input[@name='email']");
     private static final By roleInput = By.xpath("//input[@name='role']");
     private static final By submitButton = By.cssSelector(".MuiGrid-root.MuiGrid-item.MuiGrid-grid-xs-12 button");
-    private static final By deleteButton = By.cssSelector(".user-actions-container > svg");
     private static final By closeButton = By.cssSelector("header.MuiPaper-root button:nth-child(2)");
+    private static final By deleteButton = By.className("delete-user-icon");
     private static final int nameIndex = 0;
     private static final int emailIndex = 1;
     private static final int roleIndex = 2;
@@ -63,22 +63,18 @@ public class Users extends Base {
         }
     }
 
-    public static Map<String, String> getUserDetails(WebElement row) {
-        Map<String, String> applicantDetails = new HashMap<>();
+    public static Map<String, Object> getUserDetails(WebElement row) {
         try {
-            List<WebElement> columns = row.findElements(By.cssSelector("td"));
-            String name = columns.get(nameIndex).getText();
-            String email = columns.get(emailIndex).getText();
-            String role = columns.get(roleIndex).getText();
-            String status = columns.get(statusIndex).getText();
-            String createdAt = columns.get(createdAtIndex).getText();
-            applicantDetails.put("name", name);
-            applicantDetails.put("email", email);
-            applicantDetails.put("status", status);
-            applicantDetails.put("createdAt", createdAt);
-            return applicantDetails;
+            Map<String, Object> userDetails = new HashMap<>();
+            List<WebElement> userDetailsElements = row.findElements(By.tagName("td"));
+            userDetails.put("name",userDetailsElements.get(nameIndex).getText());
+            userDetails.put("email",userDetailsElements.get(emailIndex).getText());
+            userDetails.put("role",userDetailsElements.get(roleIndex).getText());
+            userDetails.put("createdAt",userDetailsElements.get(createdAtIndex).getText());
+            userDetails.put("status",userDetailsElements.get(statusIndex).findElement(By.tagName("input")).isSelected());
+            return userDetails;
         } catch (Exception e) {
-            return applicantDetails;
+            return null;
         }
     }
 
@@ -95,12 +91,23 @@ public class Users extends Base {
         }
     }
 
-    public static void deleteUser(WebDriver driver, String name) {
+    public static Map<String,Object> getUserDetailsByName(WebDriver driver,String name) {
         try {
-
+        WebElement row = getRowByName(driver,name);
+        return getUserDetails(row);
         } catch (Exception e) {
             System.out.println(e.getClass());
-            WebDriverUtil.takeScreenShot(driver,"deleteUser");
+        }
+        return null;
+    }
+
+    public static void deleteUser(WebDriver driver, String name) {
+        try {
+            WebElement row = getRowByName(driver,name);
+            assert row != null;
+            row.findElement(deleteButton).click();
+        } catch (Exception e) {
+            System.out.println(e.getClass());
         }
     }
 }

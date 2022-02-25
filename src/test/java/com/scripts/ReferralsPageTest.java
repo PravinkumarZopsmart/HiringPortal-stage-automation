@@ -1,10 +1,8 @@
 package com.scripts;
-
+import com.utils.*;
 import com.pages.Base;
 import com.pages.LoginPage;
 import com.pages.Referrals;
-import com.utils.ElementHelpers;
-import com.utils.WebDriverUtil;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.*;
 

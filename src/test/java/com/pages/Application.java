@@ -1,4 +1,5 @@
 package com.pages;
+
 import com.utils.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -8,7 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Application extends Base{
+public class Application extends Base {
     private static final int nameIndex = 0;
     private static final int emailIndex = 1;
     private static final int phoneIndex = 2;
@@ -25,7 +26,7 @@ public class Application extends Base{
     private static final By closeButton = By.cssSelector(".MuiDialog-container.MuiDialog-scrollPaper > div > header > div > button");
 
     public static String getPageHeading(WebDriver driver) {
-        ElementHelpers.waitForElementToBeVisible(driver,pageHeadingLocator);
+        ElementHelpers.waitForElementToBeVisible(driver, pageHeadingLocator);
         return driver.findElement(pageHeadingLocator).getText();
     }
 
@@ -65,7 +66,7 @@ public class Application extends Base{
 
     public static boolean enterApplicantDetails(WebDriver driver, String status) {
         try {
-            do{
+            do {
                 List<WebElement> getAllRows = driver.findElements(allRows);
                 for (WebElement getAllRow : getAllRows) {
                     if (getAllRow.findElement(By.cssSelector("td:nth-child(5)")).getText().equalsIgnoreCase(status)) {
@@ -85,7 +86,7 @@ public class Application extends Base{
     public static Map<String, String> getApplicantNameAndStatus(WebDriver driver) {
         Map<String, String> applicantNameAndStatus = new HashMap<>();
         try {
-            ElementHelpers.waitForElementToBeVisible(driver,applicantName);
+            ElementHelpers.waitForElementToBeVisible(driver, applicantName);
             applicantNameAndStatus.put("name", driver.findElement(applicantName).getText());
             applicantNameAndStatus.put("status", driver.findElement(applicantStatus).getText());
             return applicantNameAndStatus;
@@ -122,9 +123,10 @@ public class Application extends Base{
                     break;
                 }
             }
+            ElementHelpers.waitForElementToBeVisible(driver, viewInformationDetails);
             List<WebElement> info = driver.findElements(viewInformationDetails);
-            emailAndPhone.put("email",info.get(0).getText().split(" ")[1]);
-            emailAndPhone.put("phone",info.get(1).getText().split(" ")[1]);
+            emailAndPhone.put("email", info.get(0).getText().split(" ")[1]);
+            emailAndPhone.put("phone", info.get(1).getText().split(" ")[1]);
             driver.findElement(closeButton).click();
         } catch (Exception e) {
             WebDriverUtil.takeScreenShot(driver, "getEmailAndPhone");

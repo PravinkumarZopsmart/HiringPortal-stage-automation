@@ -8,6 +8,7 @@ import org.testng.annotations.*;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import static org.testng.Assert.*;
 
@@ -38,7 +39,7 @@ public class UserPageTest {
     @Test
     public void testUsersHeader() {
         String expectedHeader = USERS.toUpperCase();
-        String actualHeader = Users.getPageHeader(driver).toUpperCase();
+        String actualHeader = Objects.requireNonNull(Users.getPageHeader(driver)).toUpperCase();
         assertEquals(actualHeader, expectedHeader);
     }
 
@@ -75,8 +76,7 @@ public class UserPageTest {
 
     @Test
     public void testStatusFilter() throws InterruptedException {
-        Base.selectFilter(driver,"status","inactive");
-        Thread.sleep(5000);
+        Base.selectFilter(driver, "status", "inactive");
         do {
             List<WebElement> usersRow = Base.getAllRows(driver);
             assert usersRow != null;
@@ -87,6 +87,48 @@ public class UserPageTest {
                 assertFalse(status);
             }
         } while (Base.moveToNextPage(driver));
+        Base.selectFilter(driver, "status", "inactive");
+        Base.selectFilter(driver, "status", "active");
+        do {
+            List<WebElement> usersRow = Base.getAllRows(driver);
+            assert usersRow != null;
+            for (WebElement row : usersRow) {
+                Map<String, Object> userDetails = Users.getUserDetails(row);
+                assert userDetails != null;
+                boolean status = (boolean) userDetails.get("status");
+                assertTrue(status);
+            }
+        } while (Base.moveToNextPage(driver));
+        Base.clearFilterField(driver, "status");
+        do {
+            List<WebElement> usersRow = Base.getAllRows(driver);
+            assert usersRow != null;
+            for (WebElement row : usersRow) {
+                Map<String, Object> userDetails = Users.getUserDetails(row);
+                assert userDetails != null;
+                boolean status = (boolean) userDetails.get("status");
+                assertTrue(status);
+            }
+        } while (Base.moveToNextPage(driver));
+    }
+
+    @Test
+    public void testRoleFilter() {
+        String[] roles = {"ADMIN", "HR", "HIRING MANAGER", "USER"};
+        for (String role : roles) {
+            Base.selectFilter(driver, "Role", role);
+            do {
+                List<WebElement> usersRow = Base.getAllRows(driver);
+                assert usersRow != null;
+                for (WebElement row : usersRow) {
+                    Map<String, Object> userDetails = Users.getUserDetails(row);
+                    assert userDetails != null;
+                    String actualRole = (String) userDetails.get("role");
+                    assertEquals(actualRole, role);
+                }
+            } while (Base.moveToNextPage(driver));
+            Base.clearFilterField(driver, "Role");
+        }
     }
 
     @AfterSuite

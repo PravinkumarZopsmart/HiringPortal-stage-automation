@@ -1,4 +1,5 @@
 package com.utils;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -33,7 +34,7 @@ public class ElementHelpers {
         try {
             wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
         } catch (Exception e) {
-            WebDriverUtil.takeScreenShot(driver,"elementNotVisible");
+            WebDriverUtil.takeScreenShot(driver, "elementNotVisible");
             System.out.println("Error finding element --" + e.getClass());
         }
     }
@@ -43,25 +44,46 @@ public class ElementHelpers {
         try {
             wait.until(ExpectedConditions.titleIs(title));
         } catch (Exception e) {
-            WebDriverUtil.takeScreenShot(driver,"title");
+            WebDriverUtil.takeScreenShot(driver, "title");
         }
     }
 
-    public static void waitForElementToBeEnabled(WebDriver driver,WebElement element) {
-        WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(10));
+    public static void waitForElementToBeEnabled(WebDriver driver, WebElement element) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         try {
             wait.until(ExpectedConditions.elementToBeClickable(element));
         } catch (Exception e) {
-            WebDriverUtil.takeScreenShot(driver,"title");
+            WebDriverUtil.takeScreenShot(driver, "waitForElementToBeEnable");
         }
     }
 
-    public static void waitForElementToBeEnabled(WebDriver driver,By locator) {
-        WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(10));
+    public static void waitForElementToBeEnabled(WebDriver driver, By locator) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         try {
             wait.until(ExpectedConditions.elementToBeClickable(locator));
         } catch (Exception e) {
-            WebDriverUtil.takeScreenShot(driver,"title");
+            e.printStackTrace();
+            WebDriverUtil.takeScreenShot(driver, "waitForElementToBeEnable");
+        }
+    }
+
+    public static void waitForElementToHide(WebDriver driver, By locator) {
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+            wait.until(ExpectedConditions.invisibilityOf(driver.findElement(locator)));
+        } catch (Exception e) {
+            e.printStackTrace();
+            WebDriverUtil.takeScreenShot(driver, "waitForElementToHide");
+        }
+    }
+
+    public static void waitForElementToBeClickable(WebDriver driver, By locator) {
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+            wait.until(ExpectedConditions.elementToBeClickable(locator));
+        } catch (Exception e) {
+            e.printStackTrace();
+            WebDriverUtil.takeScreenShot(driver, "waitForElementToBeClickable");
         }
     }
 }

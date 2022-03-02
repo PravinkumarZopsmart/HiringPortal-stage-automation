@@ -1,5 +1,6 @@
 package com.scripts;
 
+import com.pages.Base;
 import com.pages.LoginPage;
 import com.utils.*;
 import org.openqa.selenium.WebDriver;
@@ -14,6 +15,7 @@ public class LoginPageTest {
 
     @BeforeSuite
     public void setUpDriver() {
+        Base.deleteScreenshots();
         driver = WebDriverUtil.startWebDriver();
         driver.get(URL);
     }

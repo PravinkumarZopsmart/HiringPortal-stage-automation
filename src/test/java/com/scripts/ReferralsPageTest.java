@@ -17,6 +17,7 @@ public class ReferralsPageTest {
 
     @BeforeSuite
     public void setUpDriver() {
+        Base.deleteScreenshots();
         driver = WebDriverUtil.startWebDriver();
         driver.manage().window().maximize();
         driver.get(URL);
@@ -49,7 +50,7 @@ public class ReferralsPageTest {
     @Test
     public static void testNumberOfReferrals() {
         int actualNumberOfReferrals = Referrals.getNumberOfRowsInCurrentPage(driver);
-        int expectedNumberOfReferrals = Referrals.getNumberOfApplications(driver);
+        int expectedNumberOfReferrals = Referrals.getTotalNumberOfRowsInSection(driver);
         assertEquals(actualNumberOfReferrals,expectedNumberOfReferrals);
     }
 

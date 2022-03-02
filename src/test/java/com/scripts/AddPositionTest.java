@@ -1,4 +1,5 @@
 package com.scripts;
+import com.pages.Base;
 import com.pages.Dashboard;
 import com.utils.*;
 import com.pages.AddPosition;
@@ -16,6 +17,7 @@ public class AddPositionTest {
 
     @BeforeSuite
     public void setUpDriver() {
+        Base.deleteScreenshots();
         driver = WebDriverUtil.startWebDriver();
         driver.get(URL);
     }

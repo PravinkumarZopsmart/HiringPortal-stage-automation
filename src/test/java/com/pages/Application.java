@@ -1,17 +1,15 @@
 package com.pages;
+
 import com.utils.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.time.Duration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Application extends Base{
+public class Application extends Base {
     private static final int nameIndex = 0;
     private static final int emailIndex = 1;
     private static final int phoneIndex = 2;
@@ -20,10 +18,6 @@ public class Application extends Base{
     private static final int createdAtIndex = 5;
     private static final int resumeIndex = 6;
     private static final By pageHeadingLocator = By.cssSelector(".head-text-applications-list");
-    private static final By tableContentsLocator = By.cssSelector(".MuiTableBody-root tr");
-    private static final By nextPageButtonLocator = By.cssSelector(".MuiTablePagination-actions button:nth-child(2)");
-    private static final By previousPageButtonLocator = By.cssSelector("MuiTablePagination-actions button:nth-child(1)");
-    private static final By allRows = By.cssSelector(".MuiTableContainer-root.table-container > table > tbody tr");
     private static final By applicantName = By.cssSelector(".interview_header h3");
     private static final By applicantStatus = By.cssSelector(".interview_header h5");
     private static final By applicationDetailsButtons = By.cssSelector(".interview_header_content " +
@@ -32,23 +26,23 @@ public class Application extends Base{
     private static final By closeButton = By.cssSelector(".MuiDialog-container.MuiDialog-scrollPaper > div > header > div > button");
 
     public static String getPageHeading(WebDriver driver) {
-        ElementHelpers.waitForElementToBeVisible(driver,pageHeadingLocator);
+        ElementHelpers.waitForElementToBeVisible(driver, pageHeadingLocator);
         return driver.findElement(pageHeadingLocator).getText();
     }
 
-    public static Map<String, String> getApplicantDetails(WebDriver driver, String status) {
+    public static Map<String, String> getApplicantDetailsByStatus(WebDriver driver, String status) {
         do {
             List<WebElement> getAllRows = driver.findElements(allRows);
             for (WebElement getAllRow : getAllRows) {
                 if (getAllRow.findElement(By.cssSelector("td:nth-child(5)")).getText().equalsIgnoreCase(status)) {
-                    return getApplicantDetails(getAllRow);
+                    return getApplicantDetailsByStatus(getAllRow);
                 }
             }
         } while (moveToNextPage(driver));
         return null;
     }
 
-    public static Map<String, String> getApplicantDetails(WebElement row) {
+    public static Map<String, String> getApplicantDetailsByStatus(WebElement row) {
         Map<String, String> applicantDetails = new HashMap<>();
         try {
             List<WebElement> columns = row.findElements(By.cssSelector("td"));
@@ -72,7 +66,7 @@ public class Application extends Base{
 
     public static boolean enterApplicantDetails(WebDriver driver, String status) {
         try {
-            do{
+            do {
                 List<WebElement> getAllRows = driver.findElements(allRows);
                 for (WebElement getAllRow : getAllRows) {
                     if (getAllRow.findElement(By.cssSelector("td:nth-child(5)")).getText().equalsIgnoreCase(status)) {
@@ -92,7 +86,7 @@ public class Application extends Base{
     public static Map<String, String> getApplicantNameAndStatus(WebDriver driver) {
         Map<String, String> applicantNameAndStatus = new HashMap<>();
         try {
-            ElementHelpers.waitForElementToBeVisible(driver,applicantName);
+            ElementHelpers.waitForElementToBeVisible(driver, applicantName);
             applicantNameAndStatus.put("name", driver.findElement(applicantName).getText());
             applicantNameAndStatus.put("status", driver.findElement(applicantStatus).getText());
             return applicantNameAndStatus;
@@ -129,9 +123,10 @@ public class Application extends Base{
                     break;
                 }
             }
+            ElementHelpers.waitForElementToBeVisible(driver, viewInformationDetails);
             List<WebElement> info = driver.findElements(viewInformationDetails);
-            emailAndPhone.put("email",info.get(0).getText().split(" ")[1]);
-            emailAndPhone.put("phone",info.get(1).getText().split(" ")[1]);
+            emailAndPhone.put("email", info.get(0).getText().split(" ")[1]);
+            emailAndPhone.put("phone", info.get(1).getText().split(" ")[1]);
             driver.findElement(closeButton).click();
         } catch (Exception e) {
             WebDriverUtil.takeScreenShot(driver, "getEmailAndPhone");

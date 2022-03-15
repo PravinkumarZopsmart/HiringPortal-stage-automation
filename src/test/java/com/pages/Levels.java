@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Levels extends Base{
+public class Levels extends Base {
     private static final By header = By.cssSelector(".head-text-levels-list");
     private static final By inputName = By.name("name");
     private static final By submitButton = By.xpath("//button[@data-testid='testSubmit']");
@@ -27,12 +27,12 @@ public class Levels extends Base{
 
     public static Map<String, Object> getRowDetailsByName(WebDriver driver, String name) {
         try {
-            WebElement row = getRowByName(driver,name);
+            WebElement row = getRowByName(driver, name);
             return getLevelsDetails(row);
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println(e.getClass());
-            WebDriverUtil.takeScreenShot(driver,"getRowByDetailsByName");
+            WebDriverUtil.takeScreenShot(driver, "getRowByDetailsByName");
         }
         return null;
     }
@@ -41,12 +41,12 @@ public class Levels extends Base{
         try {
             Map<String, Object> userDetails = new HashMap<>();
             List<WebElement> userDetailsElements = row.findElements(By.tagName("td"));
-            userDetails.put("name",userDetailsElements.get(nameIndex).getText());
-            userDetails.put("createdAt",userDetailsElements.get(createdAtIndex).getText());
-            userDetails.put("status",userDetailsElements.get(statusIndex).getText());
-            userDetails.put("actionButtons",userDetailsElements.get(actionIndex).findElements(By.tagName("button")).size());
+            userDetails.put("name", userDetailsElements.get(nameIndex).getText());
+            userDetails.put("createdAt", userDetailsElements.get(createdAtIndex).getText());
+            userDetails.put("status", userDetailsElements.get(statusIndex).getText());
+            userDetails.put("actionButtons", userDetailsElements.get(actionIndex).findElements(By.tagName("button")).size());
             boolean deleteButton = ((int) userDetails.get("actionButtons")) == 2;
-            userDetails.put("isDelete",deleteButton);
+            userDetails.put("isDelete", deleteButton);
             return userDetails;
         } catch (Exception e) {
             e.printStackTrace();
@@ -55,22 +55,22 @@ public class Levels extends Base{
         }
     }
 
-    public static void editName(WebDriver driver,String nameToChange,String name) {
+    public static void editName(WebDriver driver, String nameToChange, String name) {
         try {
-            WebElement row = getRowByName(driver,nameToChange);
+            WebElement row = getRowByName(driver, nameToChange);
             assert row != null;
             List<WebElement> userDetailsElements = row.findElements(By.tagName("td"));
             userDetailsElements.get(actionIndex).findElement(By.cssSelector(".level-actions-container div button")).click();
-            ElementHelpers.waitForElementToBeVisible(driver,inputName);
+            ElementHelpers.waitForElementToBeVisible(driver, inputName);
             WebElement inputField = driver.findElement(inputName);
-            inputField.sendKeys(Keys.chord(Keys.COMMAND,"a"));
+            inputField.sendKeys(Keys.chord(Keys.COMMAND, "a"));
             inputField.sendKeys(Keys.DELETE);
             inputField.sendKeys(name);
             driver.findElement(submitButton).click();
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println(e.getClass());
-            WebDriverUtil.takeScreenShot(driver,"editName");
+            WebDriverUtil.takeScreenShot(driver, "editName");
         }
     }
 }

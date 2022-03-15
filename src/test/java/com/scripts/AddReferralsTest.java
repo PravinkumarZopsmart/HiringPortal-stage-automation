@@ -1,4 +1,5 @@
 package com.scripts;
+
 import com.pages.*;
 import com.utils.*;
 import org.openqa.selenium.WebDriver;
@@ -28,7 +29,7 @@ public class AddReferralsTest {
 
     @Test
     public void addReferralTest() throws InterruptedException {
-        int expectedNumberOfPositions = Dashboard.getNumberOf(driver,"Referrals") + 1;
+        int expectedNumberOfPositions = Dashboard.getNumberOf(driver, "Referrals") + 1;
         int actualNumberOfPositions = Integer.parseInt(AddReferrals.addReferralss(driver));
         Assert.assertEquals(expectedNumberOfPositions, actualNumberOfPositions);
     }

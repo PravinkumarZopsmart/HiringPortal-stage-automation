@@ -61,17 +61,17 @@ public class LevelsPageTest {
 
     @Test
     public void testEditFunction() {
-        Levels.editName(driver,"Tester","Testers");
-        Base.selectSideBarPage(driver,"Levels");
+        Levels.editName(driver, "Tester", "Testers");
+        Base.selectSideBarPage(driver, "Levels");
         Map<String, Object> levelsDetails = Levels.getRowDetailsByName(driver, "Testers");
         assert levelsDetails != null;
-        assertEquals(levelsDetails.get("name"),"Testers");
+        assertEquals(levelsDetails.get("name"), "Testers");
         System.out.println(levelsDetails);
-        Levels.editName(driver,"Testers","Tester");
-        Base.selectSideBarPage(driver,"Levels");
+        Levels.editName(driver, "Testers", "Tester");
+        Base.selectSideBarPage(driver, "Levels");
         levelsDetails = Levels.getRowDetailsByName(driver, "Tester");
         assert levelsDetails != null;
-        assertEquals(levelsDetails.get("name"),"Tester");
+        assertEquals(levelsDetails.get("name"), "Tester");
     }
 
     @AfterSuite

@@ -7,7 +7,7 @@ import org.openqa.selenium.WebElement;
 
 import java.util.List;
 
-public class Referrals extends Base{
+public class Referrals extends Base {
     private static final By addReferralButton = By.cssSelector(".add-referral-button button");
     private static final By referralPage = By.cssSelector(".complete-form-applicant");
     private static final By positionSpan = By.id("interviewer");
@@ -19,14 +19,14 @@ public class Referrals extends Base{
 
     public static void addReferrals(WebDriver driver) {
         driver.findElement(addReferralButton).click();
-        ElementHelpers.waitForElementToBeVisible(driver,referralPage);
+        ElementHelpers.waitForElementToBeVisible(driver, referralPage);
     }
 
     public static String getPageHeader(WebDriver driver) {
         try {
             return driver.findElement(pageHeader).getText();
         } catch (Exception e) {
-            WebDriverUtil.takeScreenShot(driver,"gePageHeading");
+            WebDriverUtil.takeScreenShot(driver, "gePageHeading");
             return null;
         }
     }
@@ -34,30 +34,30 @@ public class Referrals extends Base{
     private static void selectAnyPosition(WebDriver driver) {
         try {
             driver.findElement(positionSpan).click();
-            ElementHelpers.waitForElementToBeVisible(driver,By.cssSelector("#menu-position .MuiList-root.MuiMenu-list.MuiList-padding li:nth-child(3)"));
-            ElementHelpers.waitForElementToBeVisible(driver,positionList);
+            ElementHelpers.waitForElementToBeVisible(driver, By.cssSelector("#menu-position .MuiList-root.MuiMenu-list.MuiList-padding li:nth-child(3)"));
+            ElementHelpers.waitForElementToBeVisible(driver, positionList);
             List<WebElement> positions = driver.findElements(positionList);
             System.out.println(positions.size());
-            int randomIndex =(int)Math.floor(Math.random()*(positions.size()-1+1)+1);
+            int randomIndex = (int) Math.floor(Math.random() * (positions.size() - 1 + 1) + 1);
             positions.get(randomIndex).click();
         } catch (Exception e) {
             System.out.println(e.getClass());
-            WebDriverUtil.takeScreenShot(driver,"selectPositionInReferrals");
+            WebDriverUtil.takeScreenShot(driver, "selectPositionInReferrals");
         }
     }
 
     public static boolean isSubmitButton(WebDriver driver) {
-        ElementHelpers.waitForElementToBeVisible(driver,submitButton);
+        ElementHelpers.waitForElementToBeVisible(driver, submitButton);
         return driver.findElement(submitButton).isEnabled();
     }
 
     public static void closeAddReferralPage(WebDriver driver) {
-        try{
-            ElementHelpers.waitForElementToBeVisible(driver,closeButton);
+        try {
+            ElementHelpers.waitForElementToBeVisible(driver, closeButton);
             driver.findElement(closeButton).click();
         } catch (Exception e) {
             System.out.println(e.getClass());
-            WebDriverUtil.takeScreenShot(driver,"closeAddReferral");
+            WebDriverUtil.takeScreenShot(driver, "closeAddReferral");
         }
     }
 }

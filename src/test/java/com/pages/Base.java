@@ -133,7 +133,7 @@ public class Base {
 
     public static void selectFilter(WebDriver driver, String filterName, String filterToApply) {
         try {
-            filterName = CaseUtils.toCamelCase(filterName,false,' ');
+            filterName = CaseUtils.toCamelCase(filterName, false, ' ');
             String filter = "//button[@data-testid='testFilter-" + filterName + "']";
             ElementHelpers.waitForElementToBeEnabled(driver, By.xpath(filter));
             ElementHelpers.waitForElementToBeVisible(driver, driver.findElement(By.xpath(filter)));
@@ -176,26 +176,26 @@ public class Base {
         }
     }
 
-    public static void searchInPage(WebDriver driver,String toSearch) {
+    public static void searchInPage(WebDriver driver, String toSearch) {
         try {
-            ElementHelpers.waitForElementToBeVisible(driver,searchInput);
+            ElementHelpers.waitForElementToBeVisible(driver, searchInput);
             driver.findElement(searchInput).sendKeys(toSearch);
             driver.findElement(searchButton).click();
         } catch (Exception e) {
             System.out.println(e.getClass());
             e.printStackTrace();
-            WebDriverUtil.takeScreenShot(driver,"searchInPage");
+            WebDriverUtil.takeScreenShot(driver, "searchInPage");
         }
     }
 
     public static String getEmptyRecordsText(WebDriver driver) {
         try {
-            ElementHelpers.waitForElementToBeVisible(driver,emptyRecords);
+            ElementHelpers.waitForElementToBeVisible(driver, emptyRecords);
             return driver.findElement(emptyRecords).getText();
         } catch (Exception e) {
             System.out.println(e.getClass());
             e.printStackTrace();
-            WebDriverUtil.takeScreenShot(driver,"getEmptyRecords");
+            WebDriverUtil.takeScreenShot(driver, "getEmptyRecords");
         }
         return null;
     }

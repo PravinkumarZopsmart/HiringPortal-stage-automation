@@ -2,11 +2,14 @@ package com.pages;
 
 import com.utils.ElementHelpers;
 import com.utils.WebDriverUtil;
+import org.apache.commons.text.CaseUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.*;
 
 import java.io.File;
 import java.time.Duration;
+import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Objects;
 
@@ -22,6 +25,9 @@ public class Base {
     private static final By applyFilterButton = By.xpath("//button[@data-testid='testApply']");
     private static final By clearFilterButton = By.cssSelector(".MuiGrid-root.MuiGrid-item.MuiGrid-grid-xs-12 button");
     private static final By filterBlock = By.cssSelector(".MuiPaper-root.MuiPopover-paper.MuiPaper-elevation8.MuiPaper-rounded");
+    private static final By searchInput = By.xpath("//input[@type='text']");
+    private static final By searchButton = By.xpath("//button[@data-testid='testSearchLens']");
+    private static final By emptyRecords = By.className("empty-table-container__message");
 
     public static void selectSideBarPage(WebDriver driver, String button) {
         driver.get("https://stage.hiringmotion.com/");
@@ -127,7 +133,7 @@ public class Base {
 
     public static void selectFilter(WebDriver driver, String filterName, String filterToApply) {
         try {
-            filterName = filterName.toLowerCase();
+            filterName = CaseUtils.toCamelCase(filterName,false,' ');
             String filter = "//button[@data-testid='testFilter-" + filterName + "']";
             ElementHelpers.waitForElementToBeEnabled(driver, By.xpath(filter));
             ElementHelpers.waitForElementToBeVisible(driver, driver.findElement(By.xpath(filter)));
@@ -136,9 +142,10 @@ public class Base {
             WebElement element = driver.findElement(By.xpath(filter));
             element.click();
             ElementHelpers.waitForElementToBeVisible(driver, filters);
+            Thread.sleep(3000);
             List<WebElement> filtersRow = driver.findElements(filters);
             for (WebElement row : filtersRow) {
-                System.out.println(row.findElement(By.tagName("p")).getText() + filtersRow);
+                System.out.println(row.findElement(By.tagName("p")).getText());
                 if (row.findElement(By.tagName("p")).getText().equalsIgnoreCase(filterToApply)) {
                     row.findElement(By.tagName("input")).click();
                     driver.findElement(applyFilterButton).click();
@@ -167,5 +174,29 @@ public class Base {
             e.printStackTrace();
             WebDriverUtil.takeScreenShot(driver, "selectFilter");
         }
+    }
+
+    public static void searchInPage(WebDriver driver,String toSearch) {
+        try {
+            ElementHelpers.waitForElementToBeVisible(driver,searchInput);
+            driver.findElement(searchInput).sendKeys(toSearch);
+            driver.findElement(searchButton).click();
+        } catch (Exception e) {
+            System.out.println(e.getClass());
+            e.printStackTrace();
+            WebDriverUtil.takeScreenShot(driver,"searchInPage");
+        }
+    }
+
+    public static String getEmptyRecordsText(WebDriver driver) {
+        try {
+            ElementHelpers.waitForElementToBeVisible(driver,emptyRecords);
+            return driver.findElement(emptyRecords).getText();
+        } catch (Exception e) {
+            System.out.println(e.getClass());
+            e.printStackTrace();
+            WebDriverUtil.takeScreenShot(driver,"getEmptyRecords");
+        }
+        return null;
     }
 }

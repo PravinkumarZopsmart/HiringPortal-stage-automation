@@ -25,6 +25,8 @@ public class Users extends Base {
     private static final int roleIndex = 2;
     private static final int createdAtIndex = 3;
     private static final int statusIndex = 4;
+    private static final int actionIndex = 5;
+
 
     public static String getPageHeader(WebDriver driver) {
         try {
@@ -67,11 +69,14 @@ public class Users extends Base {
         try {
             Map<String, Object> userDetails = new HashMap<>();
             List<WebElement> userDetailsElements = row.findElements(By.tagName("td"));
-            userDetails.put("name",userDetailsElements.get(nameIndex).getText());
-            userDetails.put("email",userDetailsElements.get(emailIndex).getText());
-            userDetails.put("role",userDetailsElements.get(roleIndex).getText());
-            userDetails.put("createdAt",userDetailsElements.get(createdAtIndex).getText());
-            userDetails.put("status",userDetailsElements.get(statusIndex).findElement(By.tagName("input")).isSelected());
+            userDetails.put("name", userDetailsElements.get(nameIndex).getText());
+            userDetails.put("email", userDetailsElements.get(emailIndex).getText());
+            userDetails.put("role", userDetailsElements.get(roleIndex).getText());
+            userDetails.put("createdAt", userDetailsElements.get(createdAtIndex).getText());
+            userDetails.put("status", userDetailsElements.get(statusIndex).findElement(By.tagName("input")).isSelected());
+            userDetails.put("actionButtons", userDetailsElements.get(actionIndex).findElements(By.tagName("button")).size());
+            boolean deleteButton = ((int) userDetails.get("actionButtons")) == 2;
+            userDetails.put("isDelete", deleteButton);
             return userDetails;
         } catch (Exception e) {
             return null;
@@ -91,10 +96,10 @@ public class Users extends Base {
         }
     }
 
-    public static Map<String,Object> getUserDetailsByName(WebDriver driver,String name) {
+    public static Map<String, Object> getUserDetailsByName(WebDriver driver, String name) {
         try {
-        WebElement row = getRowByName(driver,name);
-        return getUserDetails(row);
+            WebElement row = getRowByName(driver, name);
+            return getUserDetails(row);
         } catch (Exception e) {
             System.out.println(e.getClass());
         }
@@ -103,7 +108,7 @@ public class Users extends Base {
 
     public static void deleteUser(WebDriver driver, String name) {
         try {
-            WebElement row = getRowByName(driver,name);
+            WebElement row = getRowByName(driver, name);
             assert row != null;
             row.findElement(deleteButton).click();
         } catch (Exception e) {

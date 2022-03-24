@@ -46,7 +46,7 @@ public class ApplicationPageTest {
             int actualApplicationsPerPage = Application.getNumberOfRowsInCurrentPage(driver);
             int expectedApplicationPerPage = Application.getExpectedNumberOfRowsInCurrentPage(driver);
             assertTrue(actualApplicationsPerPage <= 10);
-            assertEquals(actualApplicationsPerPage,expectedApplicationPerPage);
+            assertEquals(actualApplicationsPerPage, expectedApplicationPerPage);
         } while (Application.moveToNextPage(driver));
     }
 
@@ -64,13 +64,13 @@ public class ApplicationPageTest {
             assertEquals(actualStatus, expectedStatus);
             assertFalse(Application.isApplicationDetailsButton(driver, "Edit Application"));
             assertTrue(Application.isApplicationDetailsButton(driver, "View Information"));
-            Map<String,String> emailAndPhone = Application.getEmailAndPhone(driver);
+            Map<String, String> emailAndPhone = Application.getEmailAndPhone(driver);
             String expectedEmail = applicantDetails.get("email");
-            String expectedPhone= applicantDetails.get("phone");
+            String expectedPhone = applicantDetails.get("phone");
             String actualEmail = emailAndPhone.get("email");
             String actualPhone = emailAndPhone.get("phone");
-            assertEquals(actualEmail,expectedEmail);
-            assertEquals(actualPhone,expectedPhone);
+            assertEquals(actualEmail, expectedEmail);
+            assertEquals(actualPhone, expectedPhone);
         }
     }
 
@@ -88,13 +88,13 @@ public class ApplicationPageTest {
             assertEquals(actualStatus, expectedStatus);
             assertFalse(Application.isApplicationDetailsButton(driver, "Edit Application"));
             assertTrue(Application.isApplicationDetailsButton(driver, "View Information"));
-            Map<String,String> emailAndPhone = Application.getEmailAndPhone(driver);
+            Map<String, String> emailAndPhone = Application.getEmailAndPhone(driver);
             String expectedEmail = applicantDetails.get("email");
-            String expectedPhone= applicantDetails.get("phone");
+            String expectedPhone = applicantDetails.get("phone");
             String actualEmail = emailAndPhone.get("email");
             String actualPhone = emailAndPhone.get("phone");
-            assertEquals(actualEmail,expectedEmail);
-            assertEquals(actualPhone,expectedPhone);
+            assertEquals(actualEmail, expectedEmail);
+            assertEquals(actualPhone, expectedPhone);
         }
     }
 
@@ -112,13 +112,13 @@ public class ApplicationPageTest {
             assertEquals(actualStatus, expectedStatus);
             assertTrue(Application.isApplicationDetailsButton(driver, "Edit Application"));
             assertTrue(Application.isApplicationDetailsButton(driver, "View Information"));
-            Map<String,String> emailAndPhone = Application.getEmailAndPhone(driver);
+            Map<String, String> emailAndPhone = Application.getEmailAndPhone(driver);
             String expectedEmail = applicantDetails.get("email");
-            String expectedPhone= applicantDetails.get("phone");
+            String expectedPhone = applicantDetails.get("phone");
             String actualEmail = emailAndPhone.get("email");
             String actualPhone = emailAndPhone.get("phone");
-            assertEquals(actualEmail,expectedEmail);
-            assertEquals(actualPhone,expectedPhone);
+            assertEquals(actualEmail, expectedEmail);
+            assertEquals(actualPhone, expectedPhone);
         }
     }
 
@@ -136,13 +136,13 @@ public class ApplicationPageTest {
             assertEquals(actualStatus, expectedStatus);
             assertFalse(Application.isApplicationDetailsButton(driver, "Edit Application"));
             assertTrue(Application.isApplicationDetailsButton(driver, "View Information"));
-            Map<String,String> emailAndPhone = Application.getEmailAndPhone(driver);
+            Map<String, String> emailAndPhone = Application.getEmailAndPhone(driver);
             String expectedEmail = applicantDetails.get("email");
-            String expectedPhone= applicantDetails.get("phone");
+            String expectedPhone = applicantDetails.get("phone");
             String actualEmail = emailAndPhone.get("email");
             String actualPhone = emailAndPhone.get("phone");
-            assertEquals(actualEmail,expectedEmail);
-            assertEquals(actualPhone,expectedPhone);
+            assertEquals(actualEmail, expectedEmail);
+            assertEquals(actualPhone, expectedPhone);
         }
     }
 
@@ -160,13 +160,13 @@ public class ApplicationPageTest {
             assertEquals(actualStatus, expectedStatus);
             assertTrue(Application.isApplicationDetailsButton(driver, "Edit Application"));
             assertTrue(Application.isApplicationDetailsButton(driver, "View Information"));
-            Map<String,String> emailAndPhone = Application.getEmailAndPhone(driver);
+            Map<String, String> emailAndPhone = Application.getEmailAndPhone(driver);
             String expectedEmail = applicantDetails.get("email");
-            String expectedPhone= applicantDetails.get("phone");
+            String expectedPhone = applicantDetails.get("phone");
             String actualEmail = emailAndPhone.get("email");
             String actualPhone = emailAndPhone.get("phone");
-            assertEquals(actualEmail,expectedEmail);
-            assertEquals(actualPhone,expectedPhone);
+            assertEquals(actualEmail, expectedEmail);
+            assertEquals(actualPhone, expectedPhone);
         }
     }
 
@@ -184,13 +184,13 @@ public class ApplicationPageTest {
             assertEquals(actualStatus, expectedStatus);
             assertTrue(Application.isApplicationDetailsButton(driver, "Edit Application"));
             assertTrue(Application.isApplicationDetailsButton(driver, "View Information"));
-            Map<String,String> emailAndPhone = Application.getEmailAndPhone(driver);
+            Map<String, String> emailAndPhone = Application.getEmailAndPhone(driver);
             String expectedEmail = applicantDetails.get("email");
-            String expectedPhone= applicantDetails.get("phone");
+            String expectedPhone = applicantDetails.get("phone");
             String actualEmail = emailAndPhone.get("email");
             String actualPhone = emailAndPhone.get("phone");
-            assertEquals(actualEmail,expectedEmail);
-            assertEquals(actualPhone,expectedPhone);
+            assertEquals(actualEmail, expectedEmail);
+            assertEquals(actualPhone, expectedPhone);
         }
     }
 
@@ -208,13 +208,13 @@ public class ApplicationPageTest {
             assertEquals(actualStatus, expectedStatus);
             assertTrue(Application.isApplicationDetailsButton(driver, "Edit Application"));
             assertTrue(Application.isApplicationDetailsButton(driver, "View Information"));
-            Map<String,String> emailAndPhone = Application.getEmailAndPhone(driver);
+            Map<String, String> emailAndPhone = Application.getEmailAndPhone(driver);
             String expectedEmail = applicantDetails.get("email");
-            String expectedPhone= applicantDetails.get("phone");
+            String expectedPhone = applicantDetails.get("phone");
             String actualEmail = emailAndPhone.get("email");
             String actualPhone = emailAndPhone.get("phone");
-            assertEquals(actualEmail,expectedEmail);
-            assertEquals(actualPhone,expectedPhone);
+            assertEquals(actualEmail, expectedEmail);
+            assertEquals(actualPhone, expectedPhone);
         }
     }
 
@@ -232,13 +232,13 @@ public class ApplicationPageTest {
             assertEquals(actualStatus, expectedStatus);
             assertFalse(Application.isApplicationDetailsButton(driver, "Edit Application"));
             assertTrue(Application.isApplicationDetailsButton(driver, "View Information"));
-            Map<String,String> emailAndPhone = Application.getEmailAndPhone(driver);
+            Map<String, String> emailAndPhone = Application.getEmailAndPhone(driver);
             String expectedEmail = applicantDetails.get("email");
-            String expectedPhone= applicantDetails.get("phone");
+            String expectedPhone = applicantDetails.get("phone");
             String actualEmail = emailAndPhone.get("email");
             String actualPhone = emailAndPhone.get("phone");
-            assertEquals(actualEmail,expectedEmail);
-            assertEquals(actualPhone,expectedPhone);
+            assertEquals(actualEmail, expectedEmail);
+            assertEquals(actualPhone, expectedPhone);
         }
     }
 
@@ -256,13 +256,13 @@ public class ApplicationPageTest {
             assertEquals(actualStatus, expectedStatus);
             assertTrue(Application.isApplicationDetailsButton(driver, "Edit Application"));
             assertTrue(Application.isApplicationDetailsButton(driver, "View Information"));
-            Map<String,String> emailAndPhone = Application.getEmailAndPhone(driver);
+            Map<String, String> emailAndPhone = Application.getEmailAndPhone(driver);
             String expectedEmail = applicantDetails.get("email");
-            String expectedPhone= applicantDetails.get("phone");
+            String expectedPhone = applicantDetails.get("phone");
             String actualEmail = emailAndPhone.get("email");
             String actualPhone = emailAndPhone.get("phone");
-            assertEquals(actualEmail,expectedEmail);
-            assertEquals(actualPhone,expectedPhone);
+            assertEquals(actualEmail, expectedEmail);
+            assertEquals(actualPhone, expectedPhone);
         }
     }
 

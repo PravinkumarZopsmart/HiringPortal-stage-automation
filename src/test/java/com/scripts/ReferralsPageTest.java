@@ -1,4 +1,5 @@
 package com.scripts;
+
 import com.utils.*;
 import com.pages.Base;
 import com.pages.LoginPage;
@@ -51,11 +52,11 @@ public class ReferralsPageTest {
     public static void testNumberOfReferrals() {
         int actualNumberOfReferrals = Referrals.getNumberOfRowsInCurrentPage(driver);
         int expectedNumberOfReferrals = Referrals.getTotalNumberOfRowsInSection(driver);
-        assertEquals(actualNumberOfReferrals,expectedNumberOfReferrals);
+        assertEquals(actualNumberOfReferrals, expectedNumberOfReferrals);
     }
 
     @AfterSuite
-    public void endSession(){
+    public void endSession() {
         driver.close();
         driver.quit();
     }

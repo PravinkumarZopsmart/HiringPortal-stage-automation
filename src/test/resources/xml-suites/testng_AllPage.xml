@@ -1,0 +1,15 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="EC_Automation" verbose="1">
+    <test name="Application page">
+        <classes>
+            <class name="com.scripts.ApplicationPageTest"/>
+            <class name="com.scripts.AgenciesPageTest"/>
+            <class name="com.scripts.LevelsPageTest"/>
+            <class name="com.scripts.LoginPageTest"/>
+            <class name="com.scripts.ReferralsPageTest"/>
+            <class name="com.scripts.StreamsPageTest"/>
+            <class name="com.scripts.UserPageTest"/>
+        </classes>
+    </test>
+</suite>

@@ -1,0 +1,9 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="EC_Automation" verbose="1">
+    <test name="Add Application">
+        <classes>
+            <class name="com.scripts.AddApplicationTest"/>
+        </classes>
+    </test>
+</suite>

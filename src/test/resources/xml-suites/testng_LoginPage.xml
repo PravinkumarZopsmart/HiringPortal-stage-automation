@@ -1,0 +1,9 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="EC_Automation" verbose="1">
+    <test name="Login page">
+        <classes>
+            <class name="com.scripts.LoginPageTest"/>
+        </classes>
+    </test>
+</suite>

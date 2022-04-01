@@ -1,6 +1,6 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
-<suite name="EC_Automation" verbose="1">
+<suite name="Unit" verbose="1">
     <test name="Add Position">
         <classes>
             <class name="com.scripts.AddPositionTest"/>

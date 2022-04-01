@@ -21,6 +21,6 @@ dependencies {
 
 test {
     useTestNG() {
-
+        suites "src/test/resources/xml-suites/testng_AllPages.xml"
     }
 }

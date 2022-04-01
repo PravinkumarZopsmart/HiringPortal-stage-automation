@@ -19,7 +19,7 @@ public class UserPageTest {
 
     @BeforeSuite
     public void setUpDriver() {
-        Base.deleteScreenshots();
+//        Base.deleteScreenshots();
         driver = WebDriverUtil.startWebDriver();
         driver.manage().window().maximize();
         driver.get(URL);

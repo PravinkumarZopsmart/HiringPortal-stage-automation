@@ -15,7 +15,7 @@ public class LoginPageTest {
 
     @BeforeSuite
     public void setUpDriver() {
-        Base.deleteScreenshots();
+//        Base.deleteScreenshots();
         driver = WebDriverUtil.startWebDriver();
         driver.get(URL);
     }

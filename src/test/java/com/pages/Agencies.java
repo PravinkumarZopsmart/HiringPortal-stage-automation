@@ -10,7 +10,6 @@ import java.util.Map;
 
 public class Agencies extends Base{
     private static final By header = By.cssSelector(".head-text-sources-list");
-    private static final By deleteButton = By.className("delete-source-icon");
     private static final By confirmButton = By.xpath("//button[@data-testid='testConfirmSave']");
     private static final int nameIndex = 0;
     private static final int emailIndex = 1;
@@ -47,22 +46,6 @@ public class Agencies extends Base{
             e.printStackTrace();
             System.out.println(e.getClass());
             return null;
-        }
-    }
-
-    public static void deleteAgencies(WebDriver driver,String name) {
-        try {
-            WebElement row = getRowByName(driver, name);
-            assert row != null;
-            row.findElement(deleteButton).click();
-            ElementHelpers.waitForElementToBeVisible(driver,confirmButton);
-            Thread.sleep(3000);
-            driver.findElement(confirmButton).click();
-            Thread.sleep(3000);
-        } catch (Exception e) {
-            System.out.println(e.getClass());
-            e.printStackTrace();
-            WebDriverUtil.takeScreenShot(driver, "changeStatus");
         }
     }
 

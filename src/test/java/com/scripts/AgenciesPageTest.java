@@ -40,21 +40,6 @@ public class AgenciesPageTest {
     }
 
     @Test
-    public void testDeleteButton() {
-        List<WebElement> allRows = Base.getAllRows(driver);
-        assert allRows != null;
-        for (WebElement allRow : allRows) {
-            Map<String, Object> rowDetails = Agencies.getAgenciesDetails(allRow);
-            assert rowDetails != null;
-            if ((boolean) rowDetails.get("status")) {
-                assertTrue((boolean) rowDetails.get("isDelete"));
-            } else {
-                assertFalse((boolean) rowDetails.get("isDelete"));
-            }
-        }
-    }
-
-    @Test
     public void testNameSearchFilter() {
         String toSearch = "zo";
         Base.searchInPage(driver, toSearch);
@@ -178,21 +163,6 @@ public class AgenciesPageTest {
                 assertFalse((boolean) rowDetails.get("status"));
             }
         }
-    }
-
-    @Test
-    public void testDeleteAgency() {
-        String name = "Fiberwindow";
-        Agencies.deleteAgencies(driver,name);
-        Map<String, Object> agencyDetails = Agencies.getAgencyByName(driver,name);
-        assert agencyDetails != null;
-        boolean isDelete =(boolean) agencyDetails.get("isDelete");
-        assertFalse(isDelete);
-        Agencies.changeStatus(driver,name);
-        Map<String, Object> agencyDetailsAfterChangeStatus = Agencies.getAgencyByName(driver,name);
-        assert agencyDetailsAfterChangeStatus != null;
-        boolean isDeleteAfterChangeStatus =(boolean) agencyDetailsAfterChangeStatus.get("isDelete");
-        assertTrue(isDeleteAfterChangeStatus);
     }
 
     @AfterSuite

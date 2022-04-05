@@ -60,7 +60,7 @@ public class Levels extends Base {
             WebElement row = getRowByName(driver, nameToChange);
             assert row != null;
             List<WebElement> userDetailsElements = row.findElements(By.tagName("td"));
-            userDetailsElements.get(actionIndex).findElement(By.cssSelector(".level-actions-container div button")).click();
+            userDetailsElements.get(actionIndex).findElement(By.cssSelector(".actions-container div button")).click();
             ElementHelpers.waitForElementToBeVisible(driver, inputName);
             WebElement inputField = driver.findElement(inputName);
             inputField.sendKeys(Keys.chord(Keys.COMMAND, "a"));

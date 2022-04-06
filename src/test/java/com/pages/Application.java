@@ -24,6 +24,8 @@ public class Application extends Base {
             ".MuiButtonBase-root.MuiButton-root.MuiButton-text");
     private static final By viewInformationDetails = By.cssSelector(".same-row-view-info .single-view-view-information");
     private static final By closeButton = By.cssSelector(".MuiDialog-container.MuiDialog-scrollPaper > div > header > div > button");
+    private static final By closeApplicationButton = By.xpath("//button[@data-testid='testDrop']");
+    private static final By textEditor = By.cssSelector(".ql-editor.ql-blank");
 
     public static String getPageHeading(WebDriver driver) {
         ElementHelpers.waitForElementToBeVisible(driver, pageHeadingLocator);
@@ -133,5 +135,55 @@ public class Application extends Base {
             System.out.println(e.getClass());
         }
         return emailAndPhone;
+    }
+
+    public static void closeApplication(WebDriver driver, String name) {
+        try {
+            WebElement applicant = getRowByName(driver, name);
+            assert applicant != null;
+            applicant.findElement(By.cssSelector("td a")).click();
+            ElementHelpers.waitForElementToBeVisible(driver, textEditor);
+            driver.findElement(textEditor).sendKeys("Test");
+            driver.findElement(closeApplicationButton).click();
+            driver.findElement(confirmButton).click();
+            Thread.sleep(5000);
+        } catch (Exception e) {
+            System.out.println(e.getClass());
+            e.printStackTrace();
+        }
+    }
+
+    public static String closeApplication(WebDriver driver) {
+        String name = null;
+        try {
+            ElementHelpers.waitForElementToBeVisible(driver, allRows);
+            List<WebElement> getAllRows = driver.findElements(allRows);
+            WebElement applicant = getAllRows.get(1);
+            Thread.sleep(5000);
+            name = applicant.findElement(By.tagName("td")).getText();
+            applicant.findElement(By.cssSelector("td a")).click();
+            Thread.sleep(5000);
+            ElementHelpers.waitForElementToBeVisible(driver, textEditor);
+            driver.findElement(textEditor).sendKeys("Test");
+            driver.findElement(closeApplicationButton).click();
+            driver.findElement(confirmButton).click();
+        } catch (Exception e) {
+            System.out.println(e.getClass());
+            e.printStackTrace();
+        }
+        return name;
+    }
+
+    public static void reOpenApplication(WebDriver driver, String name) {
+        try {
+            Base.selectFilter(driver, "status", "closed");
+            WebElement applicant = getRowByName(driver, name);
+            assert applicant != null;
+            applicant.findElement(By.cssSelector("td a")).click();
+            Thread.sleep(4000);
+        } catch (Exception e) {
+            System.out.println(e.getClass().getName());
+            e.printStackTrace();
+        }
     }
 }

@@ -1,7 +1,7 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
 <suite name="Regression" verbose="1">
-    <test name="Application page">
+    <test name="All pages">
         <classes>
             <class name="com.scripts.ApplicationPageTest"/>
             <class name="com.scripts.AgenciesPageTest"/>

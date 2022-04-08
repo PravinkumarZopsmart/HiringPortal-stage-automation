@@ -25,9 +25,11 @@ public class Base {
     private static final By applyFilterButton = By.xpath("//button[@data-testid='testApply']");
     private static final By clearFilterButton = By.cssSelector(".MuiGrid-root.MuiGrid-item.MuiGrid-grid-xs-12 button");
     private static final By filterBlock = By.cssSelector(".MuiPaper-root.MuiPopover-paper.MuiPaper-elevation8.MuiPaper-rounded");
-    private static final By searchInput = By.xpath("//input[@type='text']");
-    private static final By searchButton = By.xpath("//button[@data-testid='testSearchLens']");
+    private static final By searchInput = By.xpath("//div[@class='MuiTableContainer-root table-container']//input");
+    private static final By searchButton = By.xpath("//div[@class='MuiTableContainer-root table-container']//button[@data-testid='testSearchLens']");
     private static final By emptyRecords = By.className("empty-table-container__message");
+    public static final By submitButton = By.xpath("//button[@data-testid='testSubmit']");
+    public static final By closeButton = By.xpath("//button[@data-testid='testClose']");
 
     public static void selectSideBarPage(WebDriver driver, String button) {
         driver.get("https://stage.hiringmotion.com/");
@@ -179,6 +181,7 @@ public class Base {
     public static void searchInPage(WebDriver driver, String toSearch) {
         try {
             ElementHelpers.waitForElementToBeVisible(driver, searchInput);
+            ElementHelpers.waitForElementToBeClickable(driver,searchInput);
             driver.findElement(searchInput).sendKeys(toSearch);
             driver.findElement(searchButton).click();
         } catch (Exception e) {

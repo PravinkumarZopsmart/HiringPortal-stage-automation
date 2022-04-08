@@ -28,6 +28,7 @@ public class Base {
     private static final By searchInput = By.xpath("//div[@class='MuiTableContainer-root table-container']//input");
     private static final By searchButton = By.xpath("//div[@class='MuiTableContainer-root table-container']//button[@data-testid='testSearchLens']");
     private static final By emptyRecords = By.className("empty-table-container__message");
+    public static final By confirmButton = By.xpath("//button[@data-testid='testConfirmSave']");
     public static final By submitButton = By.xpath("//button[@data-testid='testSubmit']");
     public static final By closeButton = By.xpath("//button[@data-testid='testClose']");
 
@@ -147,7 +148,6 @@ public class Base {
             Thread.sleep(3000);
             List<WebElement> filtersRow = driver.findElements(filters);
             for (WebElement row : filtersRow) {
-                System.out.println(row.findElement(By.tagName("p")).getText());
                 if (row.findElement(By.tagName("p")).getText().equalsIgnoreCase(filterToApply)) {
                     row.findElement(By.tagName("input")).click();
                     driver.findElement(applyFilterButton).click();

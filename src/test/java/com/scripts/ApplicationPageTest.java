@@ -266,6 +266,13 @@ public class ApplicationPageTest {
         }
     }
 
+    @Test
+    public void testCloseAndReOpenApplication() {
+//        Application.closeApplication(driver,"Pravin kumar M");
+//        System.out.println(Application.closeApplication(driver));
+        Application.reOpenApplication(driver,"Raman");
+    }
+
     @AfterSuite
     public void endDriverSession() {
         driver.close();

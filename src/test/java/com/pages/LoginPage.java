@@ -31,6 +31,7 @@ public class LoginPage {
 
     public static void login(WebDriver driver) {
         try {
+            ElementHelpers.waitForElementToBeClickable(driver,loginButtonSelector);
             ElementHelpers.waitForElementToBeVisible(driver, loginButtonSelector);
             driver.findElement(loginButtonSelector).click();
             WebDriverUtil.moveToNextTab(driver);

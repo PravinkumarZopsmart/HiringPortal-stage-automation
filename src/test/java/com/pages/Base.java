@@ -2,16 +2,10 @@ package com.pages;
 
 import com.utils.ElementHelpers;
 import com.utils.WebDriverUtil;
-import org.apache.commons.text.CaseUtils;
 import org.openqa.selenium.*;
-import org.openqa.selenium.support.ui.*;
 
 import java.io.File;
-import java.time.Duration;
-import java.util.Iterator;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class Base {
     private static final By sideBarButtonLocator = By.cssSelector(".side-bar-buttons a");
@@ -21,10 +15,14 @@ public class Base {
     private static final By numberOfApplications = By.cssSelector(".MuiToolbar-root" +
             ".MuiToolbar-regular.MuiTablePagination-toolbar.MuiToolbar-gutters p");
     public static final By allRows = By.cssSelector(".MuiTableRow-root.table-row.MuiTableRow-hover");
-    private static final By filters = By.cssSelector(".MuiGrid-root.MuiGrid-item.MuiGrid-grid-xs-12");
+//    private static final By filters = By.cssSelector(".MuiGrid-root.MuiGrid-item.MuiGrid-grid-xs-12");//to be removed
+    private static final By filterButton = By.cssSelector(".MuiTableContainer-root.table-container button.MuiButton-text");
     private static final By applyFilterButton = By.xpath("//button[@data-testid='testApply']");
     private static final By clearFilterButton = By.cssSelector(".MuiGrid-root.MuiGrid-item.MuiGrid-grid-xs-12 button");
-    private static final By filterBlock = By.cssSelector(".MuiPaper-root.MuiPopover-paper.MuiPaper-elevation8.MuiPaper-rounded");
+    private static final By filterBlock = By.xpath("//body/div[3]/div[3]/div");
+    private static final By filters = By.xpath("//body/div[3]/div[3]/div/div[1]/div[2]");
+    private static final By filterActions = By.xpath("//button[@type='submit']");
+    private static final By filterOptionsBlock = By.className("MuiAutocomplete-popper");
     private static final By searchInput = By.xpath("//div[@class='MuiTableContainer-root table-container']//input");
     private static final By searchButton = By.xpath("//div[@class='MuiTableContainer-root table-container']//button[@data-testid='testSearchLens']");
     private static final By emptyRecords = By.className("empty-table-container__message");
@@ -136,24 +134,30 @@ public class Base {
 
     public static void selectFilter(WebDriver driver, String filterName, String filterToApply) {
         try {
-            filterName = CaseUtils.toCamelCase(filterName, false, ' ');
-            String filter = "//button[@data-testid='testFilter-" + filterName + "']";
-            ElementHelpers.waitForElementToBeEnabled(driver, By.xpath(filter));
-            ElementHelpers.waitForElementToBeVisible(driver, driver.findElement(By.xpath(filter)));
-            ElementHelpers.waitForElementToBeClickable(driver, By.xpath(filter));
-            Thread.sleep(2000);
-            WebElement element = driver.findElement(By.xpath(filter));
-            element.click();
-            ElementHelpers.waitForElementToBeVisible(driver, filters);
-            Thread.sleep(3000);
-            List<WebElement> filtersRow = driver.findElements(filters);
-            for (WebElement row : filtersRow) {
-                if (row.findElement(By.tagName("p")).getText().equalsIgnoreCase(filterToApply)) {
-                    row.findElement(By.tagName("input")).click();
-                    driver.findElement(applyFilterButton).click();
-                    return;
+            ElementHelpers.waitForElementToBeVisible(driver,filterButton);
+            driver.findElement(filterButton).click(); ///html/body/div[3]/div[3]/div/div[1]/div[2]
+            ElementHelpers.waitForElementToBeVisible(driver,filters);
+            WebElement filterElement = driver.findElement(filters);
+            List<WebElement> filterElements = filterElement.findElements(By.tagName("div"));
+            for (WebElement filter : filterElements) {
+                String nameOfFilter = filter.findElement(By.tagName("h6")).getText();
+                if(nameOfFilter.equalsIgnoreCase(filterName)) {
+//                    filter.findElement(By.tagName("input")).sendKeys(filterToApply);
+                    filter.findElement(By.tagName("input")).click();
+                    ElementHelpers.waitForElementToBeVisible(driver,filterOptionsBlock);
+                    WebElement filterOptionsBlockElement = driver.findElement(filterOptionsBlock);
+                    List<WebElement> filterOptions = filterOptionsBlockElement.findElements(By.tagName("li"));
+                    for (WebElement filterOption : filterOptions) {
+                        if(filterOption.getText().equalsIgnoreCase(filterToApply)){
+                            filterOption.findElement(By.tagName("input")).click();
+                            break;
+                        }
+                    }
+                    Thread.sleep(5000);
+                    break;
                 }
             }
+            driver.findElement(filterActions).click();
         } catch (Exception e) {
             System.out.println(e.getClass());
             e.printStackTrace();
@@ -163,13 +167,10 @@ public class Base {
 
     public static void clearFilterField(WebDriver driver, String filterName) {
         try {
-            filterName = filterName.toLowerCase();
-            String filter = "//button[@data-testid='testFilter-" + filterName + "']";
-            ElementHelpers.waitForElementToBeVisible(driver, driver.findElement(By.xpath(filter)));
-            WebElement element = driver.findElement(By.xpath(filter));
-            element.click();
-            ElementHelpers.waitForElementToBeVisible(driver, filters);
-            driver.findElement(clearFilterButton).click();
+            ElementHelpers.waitForElementToBeVisible(driver,filterButton);
+            driver.findElement(filterButton).click(); ///html/body/div[3]/div[3]/div/div[1]/div[2]
+            ElementHelpers.waitForElementToBeVisible(driver,filters);
+            driver.findElements(filterActions).get(1).click();
             ElementHelpers.waitForElementToHide(driver, filterBlock);
         } catch (Exception e) {
             System.out.println(e.getClass());

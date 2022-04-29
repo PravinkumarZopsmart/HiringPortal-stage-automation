@@ -22,6 +22,8 @@ public class LoginPage {
     private static final By nextButtonInGoogleLogin = By.id("identifierNext");
     private static final By passwordInput = By.cssSelector("#password > div.aCsJod.oJeWuf > div > div.Xb9hP > input");
     private static final By passwordNextButtonInGoogleLogin = By.id("passwordNext");
+    private static final By profileButton = By.className("user-circle");
+    private static final By logoutButton = By.className("logout-button");
 
     private static final By loginButtonSelector = By.cssSelector(".form-box > button");
     private static final By allowAccess = By.id("submit_approve_access");
@@ -63,5 +65,19 @@ public class LoginPage {
         ElementHelpers.waitForElementToBeVisible(driver, passwordInput);
         driver.findElement(passwordInput).sendKeys(password);
         driver.findElement(passwordNextButtonInGoogleLogin).click();
+    }
+
+    public static void logout(WebDriver driver) {
+        try {
+            ElementHelpers.waitForElementToBeVisible(driver,profileButton);
+            driver.findElement(profileButton).click();
+            ElementHelpers.waitForElementToBeVisible(driver,logoutButton);
+            driver.findElement(logoutButton).click();
+            ElementHelpers.waitForTitleToBe(driver,"Login | Hiring Motion");
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println(e.getClass().getName());
+            WebDriverUtil.takeScreenShot(driver,"logout");
+        }
     }
 }
